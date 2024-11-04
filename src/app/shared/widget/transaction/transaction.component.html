@@ -1,0 +1,45 @@
+<div class="table-responsive mb-0">
+  <table class="table table-centered table-nowrap">
+    <thead class="table-light">
+      <tr>
+        <th style="width: 20px;">
+          <div class="form-check font-size-16 align-middle">
+            <input class="form-check-input" type="checkbox" id="transactionCheck01">
+            <label class="form-check-label" for="transactionCheck01"></label>
+          </div>
+        </th>
+        <th class="align-middle">#</th>
+        <th class="align-middle">MEMBER NAME</th>
+        <th class="align-middle">PAYMENT DATE</th>
+        <th class="align-middle">AMOUNT</th>
+        <th class="align-middle">PAYMENT TYPE</th>
+        <th class="align-middle">PAYMENT MODE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of transactions">
+        <td>
+          <div class="form-check font-size-16">
+            <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}">
+            <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
+          </div>
+        </td>
+        <td>
+          <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+        </td>
+        <td>{{data.name}}</td>
+        <td>{{data.date}}</td>
+        <td>{{data.total}}</td>
+        <td>
+          <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-info': data.status === 'Tithe',
+                        'badge-soft-warning':data.status === 'Offering', 'badge-soft-danger':data.status === 'Donation' }">{{data.status}}</span>
+        </td>
+        <td>
+          <i class="fab {{data.payment[0]}} me-1"></i>
+          {{data.payment[1]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- end table -->

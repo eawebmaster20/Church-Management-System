@@ -1,0 +1,147 @@
+<div class="row">
+    <div class="col-lg-10">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Member Registration</h4>
+          <form class="needs-validation" (ngSubmit)="validSubmit()" [formGroup]="validationform">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="validationCustom01">First name</label>
+                  <input type="text" class="form-control" id="validationCustom01" formControlName="firstName"
+                    placeholder="First name" [ngClass]="{'is-valid': submit && form.firstName.errors}">
+                  <div *ngIf="submit && form.firstName.errors" class="valid-feedback">
+                    <span *ngIf="form.firstName.errors.required">Looks good!</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="validationCustom02">Last name</label>
+                  <input type="text" class="form-control" id="validationCustom02" formControlName="lastName"
+                    placeholder="Last name" [ngClass]="{'is-valid': submit && form.lastName.errors}">
+                  <div *ngIf="submit && form.lastName.errors" class="valid-feedback">
+                    <span *ngIf="form.lastName.errors.required">Looks good!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="validationCustom03">Phone Number</label>
+                  <input type="text" class="form-control" id="validationCustom03" formControlName="city"
+                    placeholder="City" [ngClass]="{'is-invalid': submit && form.city.errors}">
+                  <div *ngIf="submit && form.city.errors" class="invalid-feedback">
+                    <span *ngIf="form.city.errors.required">Please provide a valid Phone number.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="validationCustom04">Emanil</label>
+                  <input type="email" class="form-control" id="validationCustom04" formControlName="state"
+                    placeholder="State" [ngClass]="{'is-invalid': submit && form.state.errors}">
+                  <div *ngIf="submit && form.state.errors" class="invalid-feedback">
+                    <span *ngIf="form.state.errors.required">Please provide a valid Email.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+           <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <div class="">
+                        <h5 class="font-size-14 mb-2">Marital Status</h5>
+                        <div class="row">
+                            <div class="d-flex">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="formRadios" id="formRadios1"
+                                    checked>
+                                    <label class="form-check-label" for="formRadios1">
+                                     Single
+                                    </label>
+                                </div>
+                                <div class="form-check ms-4">
+                                    <input class="form-check-input" type="radio" name="formRadios" id="formRadios2">
+                                    <label class="form-check-label" for="formRadios2">
+                                        Married
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+
+            <div class="col-md-6">
+            <div class="mb-3">
+                <div class="">
+                    <h5 class="font-size-14 mb-2">Have Children?</h5>
+                    <div class="row">
+                        <div class="d-flex">
+                            <div class="form-check">
+                        <input class="form-check-input" type="radio" name="hasChildren" id="formRadios3"
+                            checked>
+                        <label class="form-check-label" for="formRadios3">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check ms-4">
+                        <input class="form-check-input" type="radio" name="hasChildren" id="formRadios4">
+                        <label class="form-check-label" for="formRadios4">
+                            No
+                        </label>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+           </div>
+           <div class="row mb-5">
+             <div class="col-md-6">
+               <div class="mb-3">
+                 <label for="validationCustom03">Search Spouse</label>
+                 <input type="text" class="form-control" id="validationCustom03" formControlName="city"
+                   placeholder="City" [ngClass]="{'is-invalid': submit && form.city.errors}">
+                 <div *ngIf="submit && form.city.errors" class="invalid-feedback">
+                   <span *ngIf="form.city.errors.required">Please provide a valid Phone number.</span>
+                 </div>
+               </div>
+               <div class="form-check mb-3">
+                <input type="checkbox" id="formCheck2" checked="" class="form-check-input">
+                <label for="formCheck2" class="form-check-label"> Form Checkbox checked </label>
+            </div>
+             </div>
+             <div class="col-md-6">
+               <div class="mb-3">
+                 <label for="validationCustom04">Search Child</label>
+                 <input type="email" class="form-control" id="validationCustom04" formControlName="state"
+                   placeholder="State" [ngClass]="{'is-invalid': submit && form.state.errors}">
+                 <div *ngIf="submit && form.state.errors" class="invalid-feedback">
+                   <span *ngIf="form.state.errors.required">Please provide a valid Email.</span>
+                 </div>
+               </div>
+               <div class="form-check mb-3">
+                    <input type="checkbox" id="formCheck2" checked="" class="form-check-input">
+                    <label for="formCheck2" class="form-check-label"> Form Checkbox checked </label>
+                </div>
+             </div>
+           </div>
+          <div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+      <!-- end card -->
+    </div> <!-- end col -->
+  </div>
+
+
+
+
+  
