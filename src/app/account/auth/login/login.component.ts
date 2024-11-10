@@ -5,9 +5,9 @@ import { AuthenticationService } from '../../../core/services/auth.service';
 import { AuthfakeauthenticationService } from '../../../core/services/authfake.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-
+import { jwtDecode } from "jwt-decode";
 import { environment } from '../../../../environments/environment';
+import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
   selector: 'app-login',
@@ -30,19 +30,19 @@ export class LoginComponent implements OnInit {
 
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
-    private authFackservice: AuthfakeauthenticationService) { }
+    private authFackservice: AuthfakeauthenticationService, private api: ApiService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
-      password: ['123456', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
 
     // reset login status
     // this.authenticationService.logout();
     // get return url from route parameters or default to '/'
     // tslint:disable-next-line: no-string-literal
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   // convenience getter for easy access to form fields
@@ -58,24 +58,40 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     } else {
-      if (environment.defaultauth === 'firebase') {
-        this.authenticationService.login(this.f.email.value, this.f.password.value).then((res: any) => {
-          this.router.navigate(['/dashboard']);
-        })
-          .catch(error => {
+
+      this.api.login(this.loginForm.value)
+      .subscribe(
+        {
+          next: (res) => {
+            console.log(res);
+            localStorage.setItem('token', res.token);
+            // localStorage.setItem('currentUser', jwtDecode(res.token));
+            this.authFackservice.login(jwtDecode(res.token))
+            this.router.navigate(['/dashboard']);
+          },
+          error: (error: any) => {
             this.error = error ? error : '';
-          });
-      } else {
-        this.authFackservice.login(this.f.email.value, this.f.password.value)
-          .pipe(first())
-          .subscribe(
-            data => {
-              this.router.navigate(['/dashboard']);
-            },
-            error => {
-              this.error = error ? error : '';
-            });
-      }
+          }
+        }
+      )
+      // if (environment.defaultauth === 'firebase') {
+      //   this.authenticationService.login(this.f.email.value, this.f.password.value).then((res: any) => {
+      //     this.router.navigate(['/dashboard']);
+      //   })
+      //     .catch(error => {
+      //       this.error = error ? error : '';
+      //     });
+      // } else {
+      //   this.authFackservice.login(this.f.email.value, this.f.password.value)
+      //     .pipe(first())
+      //     .subscribe(
+      //       data => {
+      //         this.router.navigate(['/dashboard']);
+      //       },
+      //       error => {
+      //         this.error = error ? error : '';
+      //       });
+      // }
     }
   }
 }

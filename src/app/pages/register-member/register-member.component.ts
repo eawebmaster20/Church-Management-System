@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { MustMatch } from './validation.mustmatch';
+import { ApiService } from 'src/app/core/services/api/api.service';
+import { concatMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-register-member',
@@ -14,7 +16,7 @@ export class RegisterMemberComponent {
   typeValidationForm: UntypedFormGroup; // type validation form
   rangeValidationForm: UntypedFormGroup; // range validation form
 
-  constructor(public formBuilder: UntypedFormBuilder) { }
+  constructor(public formBuilder: UntypedFormBuilder, private api:ApiService) { }
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
@@ -27,16 +29,23 @@ export class RegisterMemberComponent {
   ngOnInit() {
 
     this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
-
+    this.api.getMembers().subscribe(members=>console.log(members));
     /**
      * Bootstrap validation form data
      */
     this.validationform = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
       lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
-      city: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
-      state: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
-      zip: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
+      dateOfBirth: ['', [Validators.required]],
+      homeAddress: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      email: ['', [Validators.required, Validators.email]],
+      haveChildren: ['', [Validators.required]],
+      childredIds: [''],
+      isChildrenMember: [1],
+      maritalStatus: [],
+      spouseId: [0],
+      isSpouseMember: [1],
     });
 
     /**
@@ -99,6 +108,23 @@ export class RegisterMemberComponent {
    */
   validSubmit() {
     this.submit = true;
+    // console.log(this.validationform.value);
+    this.api.registerMember(this.validationform.value)
+    .pipe(
+      take(1),
+      concatMap((data) => {
+        // console.log('Event MODIFIED', data);
+        return this.api.getMembers(); 
+      })
+  )
+    .subscribe({
+       next: (response) => {
+         console.log(response);
+       },
+       error: (error) => {
+         console.log(error);
+       }
+    })
   }
 
   /**

@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthenticationService } from '../../../core/services/auth.service';
 import { environment } from '../../../../environments/environment';
-import { first } from 'rxjs/operators';
+import { first, take, throwIfEmpty } from 'rxjs/operators';
 import { UserProfileService } from '../../../core/services/user.service';
+import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,7 @@ export class SignupComponent implements OnInit {
 
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
-    private userService: UserProfileService) { }
+    private userService: UserProfileService, private api : ApiService) { }
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
@@ -47,30 +48,46 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.invalid) {
       return;
     } else {
-      if (environment.defaultauth === 'firebase') {
-        this.authenticationService.register(this.f.email.value, this.f.password.value).then((res: any) => {
+      console.log(this.signupForm.value);
+      this.api.register(this.signupForm.value)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
           this.successmsg = true;
+          console.log('success msg');
           if (this.successmsg) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/account/login']);
           }
-        })
-          .catch(error => {
-            this.error = error ? error : '';
-          });
-      } else {
-        this.userService.register(this.signupForm.value)
-          .pipe(first())
-          .subscribe(
-            data => {
-              this.successmsg = true;
-              if (this.successmsg) {
-                this.router.navigate(['/account/login']);
-              }
-            },
-            error => {
-              this.error = error ? error : '';
-            });
-      }
+        },
+        error: (error) => {
+          this.error = error ? error : '';
+          console.log(this.error);
+        }
+      })
+      // if (environment.defaultauth === 'firebase') {
+      //   this.authenticationService.register(this.f.email.value, this.f.password.value).then((res: any) => {
+      //     this.successmsg = true;
+      //     if (this.successmsg) {
+      //       this.router.navigate(['/dashboard']);
+      //     }
+      //   })
+      //     .catch(error => {
+      //       this.error = error ? error : '';
+      //     });
+      // } else {
+      //   this.userService.register(this.signupForm.value)
+      //     .pipe(first())
+      //     .subscribe(
+      //       data => {
+      //         this.successmsg = true;
+      //         if (this.successmsg) {
+      //           this.router.navigate(['/account/login']);
+      //         }
+      //       },
+      //       error => {
+      //         this.error = error ? error : '';
+      //       });
+      // }
     }
   }
 }

@@ -24,9 +24,10 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterMemberComponent } from './register-member/register-member.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
-  declarations: [RegisterMemberComponent],
+  declarations: [RegisterMemberComponent, CalendarComponent],
   imports: [
     FormsModule, 
     ReactiveFormsModule,

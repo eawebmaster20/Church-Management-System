@@ -30,20 +30,20 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="validationCustom03">Phone Number</label>
-                  <input type="text" class="form-control" id="validationCustom03" formControlName="city"
-                    placeholder="City" [ngClass]="{'is-invalid': submit && form.city.errors}">
-                  <div *ngIf="submit && form.city.errors" class="invalid-feedback">
-                    <span *ngIf="form.city.errors.required">Please provide a valid Phone number.</span>
+                  <input type="text" class="form-control" id="validationCustom03" formControlName="phoneNumber"
+                    placeholder="City" [ngClass]="{'is-invalid': submit && form.phoneNumber.errors}">
+                  <div *ngIf="submit && form.phoneNumber.errors" class="invalid-feedback">
+                    <span *ngIf="form.phoneNumber.errors.required">Please provide a valid Phone number.</span>
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="validationCustom04">Emanil</label>
-                  <input type="email" class="form-control" id="validationCustom04" formControlName="state"
-                    placeholder="State" [ngClass]="{'is-invalid': submit && form.state.errors}">
-                  <div *ngIf="submit && form.state.errors" class="invalid-feedback">
-                    <span *ngIf="form.state.errors.required">Please provide a valid Email.</span>
+                  <label for="validationCustom04">Email</label>
+                  <input type="email" class="form-control" id="validationCustom04" formControlName="email"
+                    placeholder="State" [ngClass]="{'is-invalid': submit && form.email.errors}">
+                  <div *ngIf="submit && form.email.errors" class="invalid-feedback">
+                    <span *ngIf="form.email.errors.required">Please provide a valid Email.</span>
                   </div>
                 </div>
               </div>
@@ -103,29 +103,29 @@
              <div class="col-md-6">
                <div class="mb-3">
                  <label for="validationCustom03">Search Spouse</label>
-                 <input type="text" class="form-control" id="validationCustom03" formControlName="city"
-                   placeholder="City" [ngClass]="{'is-invalid': submit && form.city.errors}">
-                 <div *ngIf="submit && form.city.errors" class="invalid-feedback">
-                   <span *ngIf="form.city.errors.required">Please provide a valid Phone number.</span>
+                 <input type="text" class="form-control" id="validationCustom03" formControlName="spouseId"
+                   placeholder="City" [ngClass]="{'is-invalid': submit && form.spouseId.errors}">
+                 <div *ngIf="submit && form.spouseId.errors" class="invalid-feedback">
+                   <span *ngIf="form.spouseId.errors.required">Please provide a valid Phone number.</span>
                  </div>
                </div>
                <div class="form-check mb-3">
-                <input type="checkbox" id="formCheck2" checked="" class="form-check-input">
-                <label for="formCheck2" class="form-check-label"> Form Checkbox checked </label>
+                <input formControlName="isSpouseMember" type="checkbox" id="formCheck2" checked="" class="form-check-input">
+                <label for="formCheck2" class="form-check-label"> Spouse not a member </label>
             </div>
              </div>
              <div class="col-md-6">
                <div class="mb-3">
                  <label for="validationCustom04">Search Child</label>
-                 <input type="email" class="form-control" id="validationCustom04" formControlName="state"
-                   placeholder="State" [ngClass]="{'is-invalid': submit && form.state.errors}">
-                 <div *ngIf="submit && form.state.errors" class="invalid-feedback">
-                   <span *ngIf="form.state.errors.required">Please provide a valid Email.</span>
+                 <input type="email" class="form-control" id="validationCustom04" formControlName="homeAddress"
+                   placeholder="State" [ngClass]="{'is-invalid': submit && form.homeAddress.errors}">
+                 <div *ngIf="submit && form.homeAddress.errors" class="invalid-feedback">
+                   <span *ngIf="form.homeAddress.errors.required">Please provide a valid Email.</span>
                  </div>
                </div>
                <div class="form-check mb-3">
                     <input type="checkbox" id="formCheck2" checked="" class="form-check-input">
-                    <label for="formCheck2" class="form-check-label"> Form Checkbox checked </label>
+                    <label for="formCheck2" class="form-check-label"> Not a member</label>
                 </div>
              </div>
            </div>
