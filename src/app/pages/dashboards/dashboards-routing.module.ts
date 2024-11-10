@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './default/default.component';
 import { Register2Component } from 'src/app/account/auth/register2/register2.component';
 import { RegisterMemberComponent } from '../register-member/register-member.component';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 const routes: Routes = [
     {
@@ -16,7 +17,7 @@ const routes: Routes = [
     },
     {
         path: 'calender',
-        component: RegisterMemberComponent
+        component: CalendarComponent
     }
 ];
 
