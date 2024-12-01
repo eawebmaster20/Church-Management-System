@@ -157,7 +157,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
    * Event add modal
    */
   openModal(event?: any) {
-    console.log('Modal open', event);
+    // console.log('Modal open', event);
     this.newEventDate = event;
     this.modalRef = this.modalService.show(this.modalShow);
   }
@@ -308,6 +308,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     .subscribe({
       next: (data) =>{
         this.calendarEvents = data;
+        console.log(data);
+        
         data.forEach((event) =>{
           calendarApi.addEvent(event)
         })
