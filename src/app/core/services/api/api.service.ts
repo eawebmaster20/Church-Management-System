@@ -10,9 +10,9 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get<User[]>(`${environment.baseUrl}/api/login`);
-}
+//   getAll() {
+//     return this.http.get<User[]>(`${environment.baseUrl}/api/login`);
+// }
 
   register(user: User) {
       return this.http.post(`${environment.baseUrl}/api/register`, user);
@@ -40,11 +40,15 @@ export class ApiService {
 
 
   registerMember(member){
-    return this.http.post(`${environment.baseUrl}/api/register-member`, member);
+    return this.http.post(`${environment.baseUrl}/api/members/add`, member);
   }
 
   getMembers(){
-    return this.http.get(`${environment.baseUrl}/api/members`);
+    return this.http.get(`${environment.baseUrl}/api/members/get-all`);
+  }
+
+  getOneMember(memberId:string){
+    return this.http.get(`${environment.baseUrl}/api/members/get/${memberId}`);
   }
 
 }
