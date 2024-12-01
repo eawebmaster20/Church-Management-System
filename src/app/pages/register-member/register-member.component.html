@@ -9,9 +9,9 @@
                 <div class="mb-3">
                   <label for="validationCustom01">First name</label>
                   <input type="text" class="form-control" id="validationCustom01" formControlName="firstName"
-                    placeholder="First name" [ngClass]="{'is-valid': submit && form.firstName.errors}">
-                  <div *ngIf="submit && form.firstName.errors" class="valid-feedback">
-                    <span *ngIf="form.firstName.errors.required">Looks good!</span>
+                    placeholder="First name" [ngClass]="{'is-invalid': submit && form.firstName.errors}">
+                  <div *ngIf="submit && form.firstName.errors" class="invalid-feedback">
+                    <span *ngIf="form.firstName.errors">Field is required</span>
                   </div>
                 </div>
               </div>
@@ -19,9 +19,9 @@
                 <div class="mb-3">
                   <label for="validationCustom02">Last name</label>
                   <input type="text" class="form-control" id="validationCustom02" formControlName="lastName"
-                    placeholder="Last name" [ngClass]="{'is-valid': submit && form.lastName.errors}">
-                  <div *ngIf="submit && form.lastName.errors" class="valid-feedback">
-                    <span *ngIf="form.lastName.errors.required">Looks good!</span>
+                    placeholder="Last name" [ngClass]="{'is-invalid': submit && form.lastName.errors}">
+                  <div *ngIf="submit && form.lastName.errors" class="invalid-feedback">
+                    <span *ngIf="form.lastName.errors.required">Field is required</span>
                   </div>
                 </div>
               </div>
@@ -29,19 +29,25 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="validationCustom03">Phone Number</label>
-                  <input type="text" class="form-control" id="validationCustom03" formControlName="phoneNumber"
-                    placeholder="City" [ngClass]="{'is-invalid': submit && form.phoneNumber.errors}">
-                  <div *ngIf="submit && form.phoneNumber.errors" class="invalid-feedback">
-                    <span *ngIf="form.phoneNumber.errors.required">Please provide a valid Phone number.</span>
-                  </div>
+                  <label for="validationCustom03">Telephone</label>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    mask="000-000-0000"
+                    id="validationCustom03" 
+                    formControlName="phoneNumber" 
+                    [ngClass]="{'is-invalid': submit && form.phoneNumber.errors}">
+                    <span class="text-muted">e.g "xxx-xxx-xxxx"</span>
+                    <div *ngIf="submit && form.phoneNumber.errors" class="invalid-feedback">
+                      <span *ngIf="form.phoneNumber.errors.required">Please provide a valid Phone number.</span>
+                    </div> 
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="validationCustom04">Email</label>
                   <input type="email" class="form-control" id="validationCustom04" formControlName="email"
-                    placeholder="State" [ngClass]="{'is-invalid': submit && form.email.errors}">
+                    placeholder="Email" [ngClass]="{'is-invalid': submit && form.email.errors}">
                   <div *ngIf="submit && form.email.errors" class="invalid-feedback">
                     <span *ngIf="form.email.errors.required">Please provide a valid Email.</span>
                   </div>
@@ -56,14 +62,15 @@
                         <div class="row">
                             <div class="d-flex">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="formRadios" id="formRadios1"
-                                    checked>
+                                    <input [value]="false" class="form-check-input" type="radio" name="maritalStatus" id="formRadios1"
+                                    formControlName="maritalStatus">
                                     <label class="form-check-label" for="formRadios1">
                                      Single
                                     </label>
                                 </div>
                                 <div class="form-check ms-4">
-                                    <input class="form-check-input" type="radio" name="formRadios" id="formRadios2">
+                                    <input [value]="true" class="form-check-input" type="radio" name="maritalStatus" id="formRadios2"
+                                    formControlName="maritalStatus">
                                     <label class="form-check-label" for="formRadios2">
                                         Married
                                     </label>
@@ -75,28 +82,29 @@
                </div>
 
             <div class="col-md-6">
-            <div class="mb-3">
-                <div class="">
-                    <h5 class="font-size-14 mb-2">Have Children?</h5>
-                    <div class="row">
-                        <div class="d-flex">
-                            <div class="form-check">
-                        <input class="form-check-input" type="radio" name="hasChildren" id="formRadios3"
-                            checked>
-                        <label class="form-check-label" for="formRadios3">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check ms-4">
-                        <input class="form-check-input" type="radio" name="hasChildren" id="formRadios4">
-                        <label class="form-check-label" for="formRadios4">
-                            No
-                        </label>
-                    </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              <div class="mb-3">
+                  <div class="">
+                      <h5 class="font-size-14 mb-2">Have Children?</h5>
+                      <div class="row">
+                          <div class="d-flex">
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="haveChildren" id="formRadios3"
+                                      formControlName="haveChildren" [value]="true">
+                                  <label class="form-check-label" for="formRadios3">
+                                      Yes
+                                  </label>
+                              </div>
+                              <div class="form-check ms-4">
+                                  <input class="form-check-input" type="radio" name="haveChildren" id="formRadios4"
+                                      formControlName="haveChildren" [value]="false">
+                                  <label class="form-check-label" for="formRadios4">
+                                      No
+                                  </label>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
            </div>
            <div class="row mb-5">
@@ -104,27 +112,27 @@
                <div class="mb-3">
                  <label for="validationCustom03">Search Spouse</label>
                  <input type="text" class="form-control" id="validationCustom03" formControlName="spouseId"
-                   placeholder="City" [ngClass]="{'is-invalid': submit && form.spouseId.errors}">
+                   placeholder="Search" [ngClass]="{'is-invalid': submit && form.spouseId.errors}">
                  <div *ngIf="submit && form.spouseId.errors" class="invalid-feedback">
                    <span *ngIf="form.spouseId.errors.required">Please provide a valid Phone number.</span>
                  </div>
                </div>
                <div class="form-check mb-3">
-                <input formControlName="isSpouseMember" type="checkbox" id="formCheck2" checked="" class="form-check-input">
+                <input formControlName="spouseIsMember" type="checkbox" id="formCheck2" checked="" class="form-check-input">
                 <label for="formCheck2" class="form-check-label"> Spouse not a member </label>
             </div>
              </div>
              <div class="col-md-6">
                <div class="mb-3">
                  <label for="validationCustom04">Search Child</label>
-                 <input type="email" class="form-control" id="validationCustom04" formControlName="homeAddress"
-                   placeholder="State" [ngClass]="{'is-invalid': submit && form.homeAddress.errors}">
-                 <div *ngIf="submit && form.homeAddress.errors" class="invalid-feedback">
+                 <input type="email" class="form-control" id="validationCustom04" formControlName="childredIds"
+                   placeholder="search..." [ngClass]="{'is-invalid': submit && form.childredIds.errors}">
+                 <!-- <div *ngIf="submit && form.childredIds.errors" class="invalid-feedback">
                    <span *ngIf="form.homeAddress.errors.required">Please provide a valid Email.</span>
-                 </div>
+                 </div> -->
                </div>
                <div class="form-check mb-3">
-                    <input type="checkbox" id="formCheck2" checked="" class="form-check-input">
+                    <input type="checkbox" id="formCheck2" checked="" class="form-check-input" formControlName="childrenIsMember">
                     <label for="formCheck2" class="form-check-label"> Not a member</label>
                 </div>
              </div>
