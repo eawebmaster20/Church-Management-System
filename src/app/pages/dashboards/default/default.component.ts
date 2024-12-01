@@ -5,6 +5,8 @@ import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal'
 import { EventService } from '../../../core/services/event.service';
 
 import { ConfigService } from '../../../core/services/config.service';
+import { ApiService } from 'src/app/core/services/api/api.service';
+import { concatMap, map } from 'rxjs';
 
 @Component({
   selector: 'app-default',
@@ -28,7 +30,12 @@ export class DefaultComponent implements OnInit {
 
   @ViewChild('content') content;
   @ViewChild('center', { static: false }) center?: ModalDirective;
-  constructor(private modalService: BsModalService, private configService: ConfigService, private eventService: EventService) {
+  constructor(
+    private modalService: BsModalService, 
+    private configService: ConfigService, 
+    private eventService: EventService,
+    private api: ApiService
+  ) {
   }
 
   ngOnInit() {
@@ -70,10 +77,30 @@ export class DefaultComponent implements OnInit {
     this.monthlyEarningChart = monthlyEarningChart;
 
     this.isActive = 'year';
-    this.configService.getConfig().subscribe(data => {
-      this.transactions = data.transactions;
-      this.statData = data.statData;
-    });
+    this.api.getMembers()
+    this.api.getMembers()
+    .pipe(concatMap(
+       (data: any[]) => 
+        { 
+          return this.configService.getConfig().pipe(map(configData => {
+            this.transactions = configData.transactions;
+            let totalRevenue = configData.statData.filter(data => data.title ==="Total Revenue")[0];
+            this.statData = configData.statData.filter(el => { 
+              
+              switch (el.title) {
+                case "Total Members":
+                 return el.value = data.length.toString()
+              
+                case "Average Income":
+                 return el.value = totalRevenue?.value ? `${'₵' +(parseFloat(totalRevenue.value.replace(/[^\d.-]/g, '')) / data.length).toFixed(0)}` : "0";
+                  
+                default:
+                  return el;
+              }
+            });
+          }));
+        }
+    )).subscribe()
   }
   opencenterModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
